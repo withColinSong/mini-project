@@ -9,10 +9,8 @@ public class userInfo {
     private String middleMeetings;  // 중간점검참석
     private String weekMeeting;     // 일주일점검참석
     private String deposit;         // 보증금
+    private String joinDate;        // 가입날짜
 
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public void setName(String name) {
         this.name = name;
@@ -73,4 +71,17 @@ public class userInfo {
     public String getDeposit() {
         return deposit;
     }
+
+    public String getJoinDate() {
+        return joinDate;
+    }
+
+    public void setJoinDate(String joinDate) {
+        this.joinDate = joinDate;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
 }
