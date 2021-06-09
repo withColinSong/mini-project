@@ -10,7 +10,6 @@ public class CRUD {
     public vo.userInfo userInfo;
     public ArrayList<userInfo> userList = new ArrayList<>();
 
-
     // 출력
     public void printMenu(String num) {
         switch (num) {
@@ -27,6 +26,10 @@ public class CRUD {
             case "1" :
                 System.out.println("회원번호를 입력해주세요.");
                 this.userJoin(scan.next());
+                break;
+            case "2" :
+                System.out.println("회원번호를 입력해주세요.");
+                this.userInfomation(scan.next());
                 break;
         }
     }
@@ -57,5 +60,66 @@ public class CRUD {
 
         userList.add(userInfo);
     }
+
+    // 2. 정보 입력
+    public void userInfomation(String id) {
+
+        if(userList.size() == 0) {
+            System.out.println("해당하는 회원이 존재하지 않습니다.");
+            return;
+        }
+
+        int i = 0;
+        while( i < userList.size()) {
+            String userId = userInfo.getId(); // 아이디
+            if(!userId.equalsIgnoreCase(id)) {
+                System.out.println("해당하는 회원이 존재하지 않습니다.");
+                return;
+            }
+            i++;
+        } // while 끝
+
+        int sum = 0;
+        System.out.println("이름 " + userInfo.getName());
+
+        System.out.print("스터디 날짜 : ");
+        userInfo.setJoinDate(scan.next());
+
+        System.out.print("챕터정리 : ");
+        String chapter = scan.next();
+        userInfo.setChapter(chapter);
+        if(!chapter.equalsIgnoreCase("O")) {
+            sum += 500;
+        }
+
+        System.out.print("과제 : ");
+        String homework = scan.next();
+        userInfo.setHomework(homework);
+        if(!homework.equalsIgnoreCase("O")) {
+            sum += 500;
+        }
+
+        System.out.print("중간점검참석 : ");
+        String middleMeetings = scan.next();
+        userInfo.setMiddleMeetings(middleMeetings);
+        if(!middleMeetings.equalsIgnoreCase("O")) {
+            sum += 500;
+
+        }
+
+        System.out.print("1주일점검참석 : ");
+        String weekMeeting = scan.next();
+        userInfo.setWeekMeeting(weekMeeting);
+        if(!weekMeeting.equalsIgnoreCase("O")) {
+            sum += 500;
+        }
+
+        userInfo.setFine(sum);
+        System.out.println(userInfo.getFine());
+
+    }
+
+    
+
 
 }

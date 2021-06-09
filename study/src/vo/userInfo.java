@@ -10,15 +10,12 @@ public class userInfo {
     private String weekMeeting;     // 일주일점검참석
     private String deposit;         // 보증금
     private String joinDate;        // 가입날짜
+    private int fine;               // 벌금 -> 1회당 500원으로 측정함
 
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public void setName(String name) { this.name = name; }
 
-    public void setStudyDate(String studyDate) {
-        this.studyDate = studyDate;
-    }
+    public void setStudyDate(String studyDate) { this.studyDate = studyDate; }
 
     public void setChapter(String chapter) {
         this.chapter = chapter;
@@ -52,9 +49,7 @@ public class userInfo {
         return studyDate;
     }
 
-    public String getChapter() {
-        return chapter;
-    }
+    public String getChapter() { return chapter; }
 
     public String getHomework() {
         return homework;
@@ -84,4 +79,7 @@ public class userInfo {
         this.id = id;
     }
 
+
+    public void setFine(int fine) {  this.fine = fine;   }
+    public int getFine() {  return fine; }
 }
