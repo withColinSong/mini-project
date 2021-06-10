@@ -8,7 +8,9 @@ import java.util.Scanner;
 public class CRUD {
     public Scanner scan;
     public vo.userInfo userInfo;
+
     public ArrayList<userInfo> userList = new ArrayList<>();
+
 
     // 출력
     public void printMenu(String num) {
@@ -31,6 +33,10 @@ public class CRUD {
                 System.out.println("회원번호를 입력해주세요.");
                 this.userInfomation(scan.next());
                 break;
+            case "3" :
+                System.out.println("회원 번호를 입력해주세요.");
+                this.updateUser(scan.next());
+                break;
         }
     }
 
@@ -47,6 +53,7 @@ public class CRUD {
                 break;
             }
             i++;
+
         }
 
         userInfo.setId(id);
@@ -80,10 +87,10 @@ public class CRUD {
         } // while 끝
 
         int sum = 0;
-        System.out.println("이름 " + userInfo.getName());
+        System.out.println("이름 : " + userInfo.getName());
 
         System.out.print("스터디 날짜 : ");
-        userInfo.setJoinDate(scan.next());
+        userInfo.setStudyDate(scan.next());
 
         System.out.print("챕터정리 : ");
         String chapter = scan.next();
@@ -119,7 +126,32 @@ public class CRUD {
 
     }
 
-    
+    /* 3. 정보 수정 */
+    public void updateUser(String id) {
+        if(userList.size() == 0) {
+            System.out.println("해당하는 회원이 존재하지 않습니다.");
+            return;
+        }
 
+        int i = 0;
+        while( i < userList.size()) {
+            String userId = userInfo.getId(); // 아이디
+            if(!userId.equalsIgnoreCase(id)) {
+                System.out.println("해당하는 회원이 존재하지 않습니다.");
+                return;
+            }
+            i++;
+        } // while 끝
+
+        System.out.println(userList.get(i-1).getId());
+
+        // 데이터 출력
+        for(userInfo a: userList) {
+            System.out.println(a);
+        }
+
+        this.userInfomation(userList.get(i-1).getId());
+        userList.set(i-1, userInfo);
+    }
 
 }

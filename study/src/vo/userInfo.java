@@ -12,6 +12,21 @@ public class userInfo {
     private String joinDate;        // 가입날짜
     private int fine;               // 벌금 -> 1회당 500원으로 측정함
 
+    @Override
+    public String toString() {
+        return "userInfo{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", studyDate='" + studyDate + '\'' +
+                ", chapter='" + chapter + '\'' +
+                ", homework='" + homework + '\'' +
+                ", middleMeetings='" + middleMeetings + '\'' +
+                ", weekMeeting='" + weekMeeting + '\'' +
+                ", deposit='" + deposit + '\'' +
+                ", joinDate='" + joinDate + '\'' +
+                ", fine=" + fine +
+                '}';
+    }
 
     public void setName(String name) { this.name = name; }
 
