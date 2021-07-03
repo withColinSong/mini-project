@@ -8,8 +8,9 @@ public class Service implements MenuChoice {
 
     Map<String, Integer> map = new HashMap<>();
     Scanner scan = new Scanner(System.in);
+
     Order order = new Order();
-    List<Order> list = new ArrayList<>();
+    public List<Order> list = new ArrayList<>();
 
     public Map<String, Integer> addMenu() {
 
@@ -35,30 +36,47 @@ public class Service implements MenuChoice {
         System.out.println("─────────────────────────────");
     }
 
-    public void menuChoice() {
-        System.out.println("음료를 선택해주세요.>>");
+//    public boolean yn() {
+//        boolean type = true;
+//        System.out.println("추가 주문을 하시겠습니까?");
+//
+//        String yn = scan.next();
+//        if(yn.equalsIgnoreCase("y")) {
+//            Order o = new Order();
+//            menuChoice();
+//            o = order;
+//            list.add(o);
+//        } else {
+//            type = false;
+//            return type;
+//        }
+//
+//        return type;
+//    }
 
+    public void menuChoice() {
+        System.out.print("음료를 선택해주세요.>>");
         String menu = "";
         int num = scan.nextInt();
 
         switch (num) {
             case 1 :
                 menu = "아메리카노";
-                typeChoice(menu);
-                shotChoice(menu);
-                sizeChoice(menu);
-                takeOut(menu);
-
-                list.add(order);
-                for(Order a: list) {
-                    System.out.println(a);
-                }
+                menuRetrun(menu);
+               break;
+            case 2:
+                menu = "바닐라라떼";
+                menuRetrun(menu);
                 break;
         }
     }
 
-
-
+    public void menuRetrun(String menu) {
+        typeChoice(menu);
+        shotChoice(menu);
+        sizeChoice(menu);
+        takeOut(menu);
+    }
 
     @Override
     public void typeChoice(String menu) {
@@ -68,10 +86,20 @@ public class Service implements MenuChoice {
         System.out.print(">>");
         String type = scan.next();
 
-        String type_ = (type.equals("1")) ? "ice":"hot";
-        order.setType(type_);
+        switch (type) {
+            case "1" :
+                type = "ice";
+                order.setType(type);
+                break;
+            case "2" :
+                type = "hot";
+                order.setType(type);
+                break;
+            case "c":
+                System.out.println("주문이 취소되었습니다.");
+                break;
+        }
         System.out.println(menu + "/" + order.getType());
-
     }
 
     @Override
@@ -80,9 +108,17 @@ public class Service implements MenuChoice {
         System.out.print(">>");
         String shot = scan.next();
 
-        String shot_ = (shot.equals("1")) ? "1":"2";
-        order.setShot(shot);
-
+        switch (shot) {
+            case "1" :
+                order.setShot(shot);
+                break;
+            case "2" :
+                order.setShot(shot);
+                break;
+            case "c":
+                System.out.println("주문이 취소되었습니다.");
+                break;
+        }
         System.out.println(menu + "/" + order.getType() + "/" + order.getShot()+"샷");
     }
 
@@ -92,33 +128,32 @@ public class Service implements MenuChoice {
         System.out.print(">>");
         String size = scan.next();
 
-        switch (size) {
-            case "1" :
-                size = "S";
-                order.setSize(size);
-            case "2" :
-                size = "M";
-                order.setSize(size);
-                break;
-            case "3" :
-                size = "L";
-                order.setSize(size);
-                break;
-            case "c":
-                System.out.println("주문취소");
-                break;
-            default:
-                System.out.println("잘못된 선택입니다.");
-        }
-
+            switch (size) {
+                case "1" :
+                    size = "S";
+                    order.setSize(size);
+                    break;
+                case "2" :
+                    size = "M";
+                    order.setSize(size);
+                    break;
+                case "3" :
+                    size = "L";
+                    order.setSize(size);
+                    break;
+                case "c":
+                    System.out.println("주문이 취소되었습니다.");
+                    break;
+            }
         System.out.println(menu + "/" + order.getType() + "/" + order.getShot()+"샷" + "/" + order.getSize());
     }
 
     @Override
     public void takeOut(String menu) {
-        System.out.println("1. 매장이용(+500원) 2. 테이크아웃 선택 선택 (주문취소 c)");
+        System.out.println("1. 매장이용(+500원) 2. 테이크아웃 선택 (주문취소 c)");
         System.out.print(">>");
         String takeOut = scan.next();
+
         switch (takeOut) {
             case "1":
                 takeOut = "매장이용";
@@ -128,8 +163,10 @@ public class Service implements MenuChoice {
                 takeOut = "테이크아웃";
                 order.setTakeOut(takeOut);
                 break;
+            case "c":
+                System.out.println("주문취소");
+                break;
         }
         System.out.println(menu + "/" + order.getType() + "/" + order.getShot()+"샷" + "/" + order.getSize() + "/" + order.getTakeOut());
-
     }
 }

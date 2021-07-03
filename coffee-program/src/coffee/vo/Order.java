@@ -1,5 +1,8 @@
 package coffee.vo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Order {
     private String type; // ice, hot
     private String shot; // 샷
