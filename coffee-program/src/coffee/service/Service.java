@@ -108,7 +108,7 @@ public class Service implements MenuChoice {
         if(yn.equalsIgnoreCase("y")) {
            return type;
         } else {
-            System.out.println(menu +  "( "+order.getType() + "/" + order.getShot()+"샷" + "/" + order.getSize() + "/" + order.getTakeOut()+")을 주문하시겠습니까?(y/n)");
+            System.out.println(menu +  "("+order.getType() + "/" + order.getShot()+"샷" + "/" + order.getSize() + "/" + order.getTakeOut()+")을 주문하시겠습니까?(y/n)");
             yn = scan.next();
             switch (yn) {
                 case "y":

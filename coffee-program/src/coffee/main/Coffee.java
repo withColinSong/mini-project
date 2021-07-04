@@ -15,14 +15,9 @@ public class Coffee {
             Menu menu = new Menu();
             Service service = new Service();
             Scanner scan = new Scanner(System.in);
-            List<Order> odList = new ArrayList<>();
 
             service.menuPrint();
-            odList.add(service.menuChoice());
-
-            for(Order o :  odList) {
-                System.out.println(o);
-            }
+            service.menuChoice();
 
         }
     }
