@@ -2,6 +2,7 @@ package coffee.service;
 
 import coffee.vo.Order;
 
+import java.text.DateFormat;
 import java.util.*;
 
 public class Service implements MenuChoice {
@@ -36,28 +37,91 @@ public class Service implements MenuChoice {
         System.out.println("─────────────────────────────");
     }
 
-//    public boolean yn() {
-//        boolean type = true;
-//        System.out.println("추가 주문을 하시겠습니까?");
-//
-//        String yn = scan.next();
-//        if(yn.equalsIgnoreCase("y")) {
-//            Order o = new Order();
-//            menuChoice();
-//            o = order;
-//            list.add(o);
-//        } else {
-//            type = false;
-//            return type;
-//        }
-//
-//        return type;
-//    }
+    public void OrderPrint(Order o, String menu) {
 
-    public void menuChoice() {
+        int sum = 0;
+        int size = 0;
+        int shot = 0;
+        int takeOut = 0;
+
+        switch (order.getShot()) {
+            case "1" :
+                shot += 0;
+                break;
+            case "2" :
+                shot += 500;
+                break;
+        }
+        switch (order.getSize()) {
+            case "S" :
+                size = 0;
+                break;
+            case "M" :
+                size += 500;
+                break;
+            case "L":
+                size += 1000;
+                break;
+        }
+
+        switch (order.getTakeOut()) {
+            case "매장이용":
+                takeOut += 500;
+                break;
+            case "테이크아웃":
+                takeOut = 0;
+                break;
+        }
+
+        sum = addMenu().get(menu) + shot + size + takeOut;
+
+        System.out.println("주문완료");
+        System.out.println("======================================");
+        System.out.println("　　　　　　대기번호 : " + "날짜");
+        System.out.println("===============결제내역===============");
+        System.out.println("품목         수량          금액");
+        System.out.println("---------------------------------------");
+        System.out.print(menu+"\t"+ list.size() +"\t" + addMenu().get(menu)+"\n");
+        System.out.print("추가 "+order.getType() +"\t"+ list.size() +"\t" + addMenu().get(menu)+"\n");
+        System.out.print("추가 "+order.getShot() +"샷 \t"+ list.size()+ "\t" + shot + "\n");
+        System.out.print("추가 "+order.getSize()+"사이즈 \t"+ list.size()+ "\t" + size + "\n");
+        System.out.print("추가 "+order.getTakeOut()+ "\n");
+        System.out.println("---------------------------------------");
+        System.out.println("합계" +"\t\t"+ sum);
+        System.out.println("======================================");
+    }
+
+    public boolean yn(String menu) {
+
+        boolean type = true;
+        System.out.println("추가 주문을 하시겠습니까?");
+
+        String yn = scan.next();
+        if(yn.equalsIgnoreCase("y")) {
+           return type;
+        } else {
+            System.out.println(menu + "/" + order.getType() + "(" + order.getShot()+"샷" + "/" + order.getSize() + "/" + order.getTakeOut()+")을 주문하시겠습니까?(y/n)");
+            yn = scan.next();
+            switch (yn) {
+                case "y":
+                    OrderPrint(order, menu);
+                    break;
+                case "n":
+                    System.out.println("주문이 취소되었습니다.");
+                    break;
+            }
+
+            type = false;
+            return type;
+        }
+    }
+
+    public Order menuChoice() {
         System.out.print("음료를 선택해주세요.>>");
         String menu = "";
         int num = scan.nextInt();
+
+        Order o = new Order();
 
         switch (num) {
             case 1 :
@@ -69,6 +133,8 @@ public class Service implements MenuChoice {
                 menuRetrun(menu);
                 break;
         }
+
+        return order;
     }
 
     public void menuRetrun(String menu) {
@@ -76,6 +142,8 @@ public class Service implements MenuChoice {
         shotChoice(menu);
         sizeChoice(menu);
         takeOut(menu);
+        list.add(order);
+        yn(menu);
     }
 
     @Override

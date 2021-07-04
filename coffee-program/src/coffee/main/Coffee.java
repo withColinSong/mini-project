@@ -16,7 +16,7 @@ public class Coffee {
             Scanner scan = new Scanner(System.in);
 
             m.menuPrint();
-            m.menuChoice();
+            m.list.add(m.menuChoice());
 
         }
     }
