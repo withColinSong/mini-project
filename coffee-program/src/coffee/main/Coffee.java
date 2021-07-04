@@ -11,12 +11,18 @@ public class Coffee {
     public void app() {
         while(true) {
 
-            Menu menu = new Menu();
-            Service m = new Service();
-            Scanner scan = new Scanner(System.in);
 
-            m.menuPrint();
-            m.list.add(m.menuChoice());
+            Menu menu = new Menu();
+            Service service = new Service();
+            Scanner scan = new Scanner(System.in);
+            List<Order> odList = new ArrayList<>();
+
+            service.menuPrint();
+            odList.add(service.menuChoice());
+
+            for(Order o :  odList) {
+                System.out.println(o);
+            }
 
         }
     }

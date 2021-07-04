@@ -3,6 +3,7 @@ package coffee.service;
 import coffee.vo.Order;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class Service implements MenuChoice {
@@ -10,8 +11,12 @@ public class Service implements MenuChoice {
     Map<String, Integer> map = new HashMap<>();
     Scanner scan = new Scanner(System.in);
 
-    Order order = new Order();
+    public Order order = new Order();
     public List<Order> list = new ArrayList<>();
+
+    SimpleDateFormat sdf = new SimpleDateFormat("MMdd");
+    Calendar cal = Calendar.getInstance();
+    String today = sdf.format(cal.getTime());
 
     public Map<String, Integer> addMenu() {
 
@@ -44,50 +49,53 @@ public class Service implements MenuChoice {
         int shot = 0;
         int takeOut = 0;
 
-        switch (order.getShot()) {
+        switch (o.getShot()) {
             case "1" :
-                shot += 0;
+                shot = 0;
                 break;
             case "2" :
-                shot += 500;
+                shot = 500;
                 break;
         }
-        switch (order.getSize()) {
+        switch (o.getSize()) {
             case "S" :
                 size = 0;
                 break;
             case "M" :
-                size += 500;
+                size = 500;
                 break;
             case "L":
-                size += 1000;
+                size = 1000;
                 break;
         }
 
-        switch (order.getTakeOut()) {
+        switch (o.getTakeOut()) {
             case "매장이용":
-                takeOut += 500;
+                takeOut = 500;
                 break;
             case "테이크아웃":
                 takeOut = 0;
                 break;
         }
 
-        sum = addMenu().get(menu) + shot + size + takeOut;
+        o.setShotSum(shot);
+        o.setSizeSum(size);
+        o.setTakeOutSum(takeOut);
+        o.setTotalSum(addMenu().get(menu)+shot+size+takeOut);
 
         System.out.println("주문완료");
         System.out.println("======================================");
-        System.out.println("　　　　　　대기번호 : " + "날짜");
+        System.out.println("　　　　　　대기번호 : " + today);
         System.out.println("===============결제내역===============");
-        System.out.println("품목         수량          금액");
+        System.out.println("품목             수량              금액");
         System.out.println("---------------------------------------");
-        System.out.print(menu+"\t"+ list.size() +"\t" + addMenu().get(menu)+"\n");
-        System.out.print("추가 "+order.getType() +"\t"+ list.size() +"\t" + addMenu().get(menu)+"\n");
-        System.out.print("추가 "+order.getShot() +"샷 \t"+ list.size()+ "\t" + shot + "\n");
-        System.out.print("추가 "+order.getSize()+"사이즈 \t"+ list.size()+ "\t" + size + "\n");
-        System.out.print("추가 "+order.getTakeOut()+ "\n");
+        System.out.print(menu+"\t\t"+ list.size() +"\t\t\t\t" + addMenu().get(menu)+"\n");
+        System.out.print("추가 "+o.getType() +"\t\t\t"+ list.size() +"\t\t\t\t0" +"\n");
+        System.out.print("추가 "+o.getShot() +"샷 \t\t"+ list.size()+ "\t\t\t\t" + o.getShotSum() + "\n");
+        System.out.print("추가 "+o.getSize()+"사이즈 \t"+ list.size()+ "\t\t\t\t" + o.getSizeSum() + "\n");
+        System.out.print("추가 "+o.getTakeOut()+ "\t\t" + list.size()+"\t\t\t\t"+o.getTakeOutSum()+"\n");
         System.out.println("---------------------------------------");
-        System.out.println("합계" +"\t\t"+ sum);
+        System.out.println("합계" +"\t\t\t\t\t\t\t\t"+ o.getTotalSum());
         System.out.println("======================================");
     }
 
@@ -100,7 +108,7 @@ public class Service implements MenuChoice {
         if(yn.equalsIgnoreCase("y")) {
            return type;
         } else {
-            System.out.println(menu + "/" + order.getType() + "(" + order.getShot()+"샷" + "/" + order.getSize() + "/" + order.getTakeOut()+")을 주문하시겠습니까?(y/n)");
+            System.out.println(menu +  "( "+order.getType() + "/" + order.getShot()+"샷" + "/" + order.getSize() + "/" + order.getTakeOut()+")을 주문하시겠습니까?(y/n)");
             yn = scan.next();
             switch (yn) {
                 case "y":
@@ -117,11 +125,10 @@ public class Service implements MenuChoice {
     }
 
     public Order menuChoice() {
+
         System.out.print("음료를 선택해주세요.>>");
         String menu = "";
         int num = scan.nextInt();
-
-        Order o = new Order();
 
         switch (num) {
             case 1 :
@@ -130,6 +137,22 @@ public class Service implements MenuChoice {
                break;
             case 2:
                 menu = "바닐라라떼";
+                menuRetrun(menu);
+                break;
+            case 3:
+                menu = "레몬에이드";
+                menuRetrun(menu);
+                break;
+            case 4:
+                menu = "자몽에이드";
+                menuRetrun(menu);
+                break;
+            case 5:
+                menu = "수박주스";
+                menuRetrun(menu);
+                break;
+            case 6:
+                menu = "토마토주스";
                 menuRetrun(menu);
                 break;
         }
